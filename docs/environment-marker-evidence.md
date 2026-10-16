@@ -81,13 +81,19 @@ inspected 1.2.5 distribution.
   This establishes the inspected local/host shell paths. Propagation into
   ordinary VM/QXC guest shells was not established, and no agent was launched.
 
-The rule accepts only exact `qwenworkcn` in
-`QODER_WORK_INTEGRATION_PRODUCT`, returning `qwenwork`. It does not accept the
-old `QODERWORK_SOURCE_CHAT_ID` or `QODERWORK_IS_CN` conditions. Session IDs,
-region/site flags, execution mode and service endpoints do not independently
-identify the product, even when combined. Case changes and surrounding whitespace
-do not match. The [QwenWork introduction](https://qwenwork.cn/docs/product-introduction)
-identifies the product but does not establish this marker as a stable public API.
+The rule checks for a non-empty `QODER_WORK_INTEGRATION_PRODUCT`, returning
+`qwenwork`. The inspected 1.3.1 build sets the fixed value `qwenworkcn`, but the
+rule does not limit accepted values to that string. It uses the existing
+`env_set` semantics: missing and empty values do not match; all non-empty values,
+including case variants and whitespace-only strings, match. Shared use of this
+variable by other products has not been established, so this condition is not
+proof of exclusive product identity.
+
+The old `QODERWORK_SOURCE_CHAT_ID` and `QODERWORK_IS_CN` conditions remain
+excluded. Session IDs, region/site flags, execution mode and service endpoints
+do not independently identify the product, even when combined. The
+[QwenWork introduction](https://qwenwork.cn/docs/product-introduction) identifies
+the product but does not establish this variable as a stable public API.
 
 ## Cue
 

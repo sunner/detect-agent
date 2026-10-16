@@ -98,15 +98,11 @@
     {
       "key": "QWENWORK",
       "name": "qwenwork",
-      "description": "QwenWork context from its exact product integration marker. Session, region, site, execution-mode and endpoint fields do not identify the product on their own.",
+      "description": "QwenWork context from a non-empty product integration variable. Its value is not restricted; shared use by other products has not been established. Session, region, site, execution-mode and endpoint fields are insufficient.",
       "match": {
         "type": "anyOf",
         "conditions": [
-          {
-            "type": "env_value",
-            "name": "QODER_WORK_INTEGRATION_PRODUCT",
-            "value": "qwenworkcn"
-          }
+          { "type": "env_set", "name": "QODER_WORK_INTEGRATION_PRODUCT" }
         ]
       }
     },
