@@ -5,6 +5,148 @@
   "aiAgentVar": "AI_AGENT",
   "agents": [
     {
+      "key": "CRUSH",
+      "name": "crush",
+      "description": "Crush execution context. Checked before inherited editor-terminal markers.",
+      "match": {
+        "type": "anyOf",
+        "conditions": [{ "type": "env_set", "name": "CRUSH" }]
+      }
+    },
+    {
+      "key": "HERMES",
+      "name": "hermes-agent",
+      "description": "Hermes execution context, identified by its session or harness marker.",
+      "match": {
+        "type": "anyOf",
+        "conditions": [
+          { "type": "env_set", "name": "HERMES_SESSION_ID" },
+          { "type": "env_set", "name": "HERMES_AGENT" }
+        ]
+      }
+    },
+    {
+      "key": "KILO_CODE",
+      "name": "kilo-code",
+      "description": "Kilo Code execution context.",
+      "match": {
+        "type": "anyOf",
+        "conditions": [{ "type": "env_set", "name": "KILOCODE_FEATURE" }]
+      }
+    },
+    {
+      "key": "TRAE",
+      "name": "trae",
+      "description": "Trae AI shell context.",
+      "match": {
+        "type": "anyOf",
+        "conditions": [{ "type": "env_set", "name": "TRAE_AI_SHELL_ID" }]
+      }
+    },
+    {
+      "key": "VTCODE",
+      "name": "vtcode",
+      "description": "VTCode execution context. Requires the documented marker value, not just a non-empty variable.",
+      "match": {
+        "type": "anyOf",
+        "conditions": [{ "type": "env_value", "name": "VTCODE", "value": "1" }]
+      }
+    },
+    {
+      "key": "WORKBUDDY",
+      "name": "workbuddy",
+      "description": "WorkBuddy application context from its exact product-name markers. Generic packaging and configuration variables are insufficient.",
+      "match": {
+        "type": "anyOf",
+        "conditions": [
+          {
+            "type": "env_value",
+            "name": "WORKBUDDY_APPLICATION_NAME",
+            "value": "WorkBuddy"
+          },
+          {
+            "type": "env_value",
+            "name": "WORKBUDDY_APP_NAME",
+            "value": "WorkBuddy"
+          }
+        ]
+      }
+    },
+    {
+      "key": "GROK_BOT",
+      "name": "grok-bot",
+      "description": "Grok Bot local or reported cloud-shell context. The cloud branch requires CURSOR_AGENT plus both exact Sand flags; shared infrastructure markers do not prove an exclusive or immediate caller. This rule precedes Cursor compatibility markers and is separate from Grok Build.",
+      "match": {
+        "type": "anyOf",
+        "conditions": [
+          { "type": "env_value", "name": "SAND_AGENT", "value": "1" },
+          {
+            "type": "allOf",
+            "conditions": [
+              { "type": "env_set", "name": "CURSOR_AGENT" },
+              { "type": "env_value", "name": "SAND_MANIFEST_V2", "value": "1" },
+              {
+                "type": "env_value",
+                "name": "SAND_SUPERVISOR_ENABLED",
+                "value": "1"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "key": "QODERWORK",
+      "name": "qoderwork",
+      "description": "QoderWork-family execution context, including the inspected QwenWork distribution. These markers do not establish a region or distinguish product branding.",
+      "match": {
+        "type": "anyOf",
+        "conditions": [
+          { "type": "env_set", "name": "QODERWORK_SOURCE_CHAT_ID" },
+          { "type": "env_value", "name": "QODERWORK_IS_CN", "value": "true" }
+        ]
+      }
+    },
+    {
+      "key": "CUE",
+      "name": "cue",
+      "description": "Cue Linux desktop-worker context from a reported runtime marker. Other MANUS-prefixed configuration variables are insufficient.",
+      "match": {
+        "type": "anyOf",
+        "conditions": [
+          {
+            "type": "env_value",
+            "name": "MANUS_LONG_DESKTOP_WORKER",
+            "value": "1"
+          }
+        ]
+      }
+    },
+    {
+      "key": "MUSE",
+      "name": "muse",
+      "description": "Muse execution context from reported active-agent or tool-call markers. Other instance, session, tier or location metadata is insufficient.",
+      "match": {
+        "type": "anyOf",
+        "conditions": [
+          { "type": "env_value", "name": "JARVIS_IS_ASSIGNED", "value": "1" },
+          { "type": "env_set", "name": "JARVIS_TOOL_CALL_ID" }
+        ]
+      }
+    },
+    {
+      "key": "MANUS_STUDIO",
+      "name": "manus-studio",
+      "description": "ManusStudio addon-runtime descriptor context from user-reported ordinary-shell observations. Descriptor values were not supplied; matching requires a non-empty value.",
+      "match": {
+        "type": "anyOf",
+        "conditions": [
+          { "type": "env_set", "name": "MANUS_ADDON_RUNTIME_SPEC_PATH" },
+          { "type": "env_set", "name": "MANUS_ADDON_RUNTIME_SPECS_REVISION" }
+        ]
+      }
+    },
+    {
       "key": "CURSOR",
       "name": "cursor",
       "match": {
@@ -39,10 +181,11 @@
     {
       "key": "GROK",
       "name": "grok",
-      "description": "Grok Build plugin hooks. Evaluated before Claude Code because Grok supports Claude Code plugins and may expose compatibility markers.",
+      "description": "Grok Build terminal or plugin context. GROK_AGENT must equal 1 because the same variable also has selector uses. Evaluated before Claude Code compatibility markers.",
       "match": {
         "type": "anyOf",
         "conditions": [
+          { "type": "env_value", "name": "GROK_AGENT", "value": "1" },
           { "type": "env_set", "name": "GROK_PLUGIN_ROOT" },
           { "type": "env_set", "name": "GROK_PLUGIN_DATA" }
         ]
@@ -112,7 +255,10 @@
       "name": "goose",
       "match": {
         "type": "anyOf",
-        "conditions": [{ "type": "env_set", "name": "GOOSE_PROVIDER" }]
+        "conditions": [
+          { "type": "env_set", "name": "GOOSE_PROVIDER" },
+          { "type": "env_set", "name": "GOOSE_TERMINAL" }
+        ]
       }
     },
     {
@@ -193,12 +339,22 @@
     {
       "key": "KIRO",
       "name": "kiro",
-      "description": "AWS Kiro. TERM_PROGRAM=kiro is set by both the IDE terminal and the CLI agent, so gate on no_tty to avoid misdetecting a human at the integrated terminal.",
+      "description": "AWS Kiro context from AGENT_CONTEXT_OUT, or the existing TERM_PROGRAM and no_tty heuristic. TERM_PROGRAM alone also occurs in human-operated IDE terminals.",
       "match": {
-        "type": "allOf",
+        "type": "anyOf",
         "conditions": [
-          { "type": "env_matches", "name": "TERM_PROGRAM", "pattern": "kiro" },
-          { "type": "no_tty" }
+          { "type": "env_set", "name": "AGENT_CONTEXT_OUT" },
+          {
+            "type": "allOf",
+            "conditions": [
+              {
+                "type": "env_matches",
+                "name": "TERM_PROGRAM",
+                "pattern": "kiro"
+              },
+              { "type": "no_tty" }
+            ]
+          }
         ]
       }
     },
@@ -216,6 +372,15 @@
       "match": {
         "type": "anyOf",
         "conditions": [{ "type": "file_exists", "path": "/opt/.devin" }]
+      }
+    },
+    {
+      "key": "ZED",
+      "name": "zed",
+      "description": "Zed terminal environment, not proof of an agent invocation. Kept as a fallback after other supported contexts.",
+      "match": {
+        "type": "anyOf",
+        "conditions": [{ "type": "env_set", "name": "ZED_TERM" }]
       }
     }
   ]
