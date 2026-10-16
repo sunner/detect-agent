@@ -1221,15 +1221,15 @@
   },
 
   {
-    "name": "ManusStudio context from non-empty MANUS_ADDON_RUNTIME_SPEC_PATH",
+    "name": "Manus context from non-empty MANUS_ADDON_RUNTIME_SPEC_PATH",
     "env": {
       "MANUS_ADDON_RUNTIME_SPEC_PATH": "/tmp/synthetic-addon-spec.json"
     },
     "expectedIsAgent": true,
-    "expectedName": "manus-studio"
+    "expectedName": "manus"
   },
   {
-    "name": "empty MANUS_ADDON_RUNTIME_SPEC_PATH does not identify ManusStudio",
+    "name": "empty MANUS_ADDON_RUNTIME_SPEC_PATH does not identify Manus",
     "env": {
       "MANUS_ADDON_RUNTIME_SPEC_PATH": ""
     },
@@ -1243,18 +1243,18 @@
       "CURSOR_TRACE_ID": "editor-trace"
     },
     "expectedIsAgent": true,
-    "expectedName": "manus-studio"
+    "expectedName": "manus"
   },
   {
-    "name": "ManusStudio context from non-empty MANUS_ADDON_RUNTIME_SPECS_REVISION",
+    "name": "Manus context from non-empty MANUS_ADDON_RUNTIME_SPECS_REVISION",
     "env": {
       "MANUS_ADDON_RUNTIME_SPECS_REVISION": "synthetic-revision"
     },
     "expectedIsAgent": true,
-    "expectedName": "manus-studio"
+    "expectedName": "manus"
   },
   {
-    "name": "empty MANUS_ADDON_RUNTIME_SPECS_REVISION does not identify ManusStudio",
+    "name": "empty MANUS_ADDON_RUNTIME_SPECS_REVISION does not identify Manus",
     "env": {
       "MANUS_ADDON_RUNTIME_SPECS_REVISION": ""
     },
@@ -1268,45 +1268,45 @@
       "CURSOR_TRACE_ID": "editor-trace"
     },
     "expectedIsAgent": true,
-    "expectedName": "manus-studio"
+    "expectedName": "manus"
   },
   {
-    "name": "MANUS_ADDON_PREVIEW_PUBLIC_ORIGIN alone does not identify ManusStudio",
+    "name": "MANUS_ADDON_PREVIEW_PUBLIC_ORIGIN alone does not identify Manus",
     "env": {
       "MANUS_ADDON_PREVIEW_PUBLIC_ORIGIN": "https://preview.example.invalid"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "MANUS_ADDON_REGISTRY_ENABLED alone does not identify ManusStudio",
+    "name": "MANUS_ADDON_REGISTRY_ENABLED alone does not identify Manus",
     "env": {
       "MANUS_ADDON_REGISTRY_ENABLED": "1"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "MANUS_ADDON_RUNTIME_PUBLIC_ORIGIN alone does not identify ManusStudio",
+    "name": "MANUS_ADDON_RUNTIME_PUBLIC_ORIGIN alone does not identify Manus",
     "env": {
       "MANUS_ADDON_RUNTIME_PUBLIC_ORIGIN": "https://runtime.example.invalid"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "MANUS_ADDON_SERVER_BRANCH alone does not identify ManusStudio",
+    "name": "MANUS_ADDON_SERVER_BRANCH alone does not identify Manus",
     "env": {
       "MANUS_ADDON_SERVER_BRANCH": "synthetic-branch"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "MANUS_GROUP_ENABLED alone does not identify ManusStudio",
+    "name": "MANUS_GROUP_ENABLED alone does not identify Manus",
     "env": {
       "MANUS_GROUP_ENABLED": "1"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "other Manus addon and group fields together do not identify ManusStudio",
+    "name": "other Manus addon and group fields together do not identify Manus",
     "env": {
       "MANUS_ADDON_PREVIEW_PUBLIC_ORIGIN": "https://preview.example.invalid",
       "MANUS_ADDON_REGISTRY_ENABLED": "1",
@@ -1317,7 +1317,7 @@
     "expectedIsAgent": false
   },
   {
-    "name": "AI_AGENT overrides ManusStudio descriptor context",
+    "name": "AI_AGENT overrides Manus descriptor context",
     "env": {
       "AI_AGENT": "custom-priority",
       "MANUS_ADDON_RUNTIME_SPECS_REVISION": "synthetic-revision"
@@ -1548,21 +1548,21 @@
     "expectedName": "custom-priority"
   },
   {
-    "name": "detects Doubao Office from a non-empty agent-name variable",
+    "name": "detects Doubao Work from a non-empty agent-name variable",
     "env": {
       "DOUBAO_OFFICE_AGENT_NAME": "synthetic-agent"
     },
     "expectedIsAgent": true,
-    "expectedAgentKey": "DOUBAO_OFFICE",
-    "expectedName": "doubao-office"
+    "expectedAgentKey": "DOUBAO_WORK",
+    "expectedName": "doubao-work"
   },
   {
-    "name": "missing DOUBAO_OFFICE_AGENT_NAME does not identify Doubao Office",
+    "name": "missing DOUBAO_OFFICE_AGENT_NAME does not identify Doubao Work",
     "env": {},
     "expectedIsAgent": false
   },
   {
-    "name": "empty DOUBAO_OFFICE_AGENT_NAME does not identify Doubao Office",
+    "name": "empty DOUBAO_OFFICE_AGENT_NAME does not identify Doubao Work",
     "env": {
       "DOUBAO_OFFICE_AGENT_NAME": ""
     },
@@ -1574,136 +1574,136 @@
       "DOUBAO_OFFICE_AGENT_NAME": " \t "
     },
     "expectedIsAgent": true,
-    "expectedAgentKey": "DOUBAO_OFFICE"
+    "expectedAgentKey": "DOUBAO_WORK"
   },
   {
-    "name": "DOUBAO_OFFICE_AGENT_NAME='other-agent' identifies Doubao Office",
+    "name": "DOUBAO_OFFICE_AGENT_NAME='other-agent' identifies Doubao Work",
     "env": {
       "DOUBAO_OFFICE_AGENT_NAME": "other-agent"
     },
     "expectedIsAgent": true,
-    "expectedAgentKey": "DOUBAO_OFFICE"
+    "expectedAgentKey": "DOUBAO_WORK"
   },
   {
-    "name": "DOUBAO_OFFICE_AGENT_NAME='doubao-office' identifies Doubao Office",
+    "name": "DOUBAO_OFFICE_AGENT_NAME='doubao-work' identifies Doubao Work",
     "env": {
-      "DOUBAO_OFFICE_AGENT_NAME": "doubao-office"
+      "DOUBAO_OFFICE_AGENT_NAME": "doubao-work"
     },
     "expectedIsAgent": true,
-    "expectedAgentKey": "DOUBAO_OFFICE"
+    "expectedAgentKey": "DOUBAO_WORK"
   },
   {
-    "name": "DOUBAO_OFFICE_AGENT_NAME='SYNTHETIC_AGENT' identifies Doubao Office",
+    "name": "DOUBAO_OFFICE_AGENT_NAME='SYNTHETIC_AGENT' identifies Doubao Work",
     "env": {
       "DOUBAO_OFFICE_AGENT_NAME": "SYNTHETIC_AGENT"
     },
     "expectedIsAgent": true,
-    "expectedAgentKey": "DOUBAO_OFFICE"
+    "expectedAgentKey": "DOUBAO_WORK"
   },
   {
-    "name": "DOUBAO_OFFICE_AGENT_NAME='Synthetic_Agent' identifies Doubao Office",
+    "name": "DOUBAO_OFFICE_AGENT_NAME='Synthetic_Agent' identifies Doubao Work",
     "env": {
       "DOUBAO_OFFICE_AGENT_NAME": "Synthetic_Agent"
     },
     "expectedIsAgent": true,
-    "expectedAgentKey": "DOUBAO_OFFICE"
+    "expectedAgentKey": "DOUBAO_WORK"
   },
   {
-    "name": "DOUBAO_OFFICE_AGENT_NAME=' synthetic-agent' identifies Doubao Office",
+    "name": "DOUBAO_OFFICE_AGENT_NAME=' synthetic-agent' identifies Doubao Work",
     "env": {
       "DOUBAO_OFFICE_AGENT_NAME": " synthetic-agent"
     },
     "expectedIsAgent": true,
-    "expectedAgentKey": "DOUBAO_OFFICE"
+    "expectedAgentKey": "DOUBAO_WORK"
   },
   {
-    "name": "DOUBAO_OFFICE_AGENT_NAME='synthetic-agent ' identifies Doubao Office",
+    "name": "DOUBAO_OFFICE_AGENT_NAME='synthetic-agent ' identifies Doubao Work",
     "env": {
       "DOUBAO_OFFICE_AGENT_NAME": "synthetic-agent "
     },
     "expectedIsAgent": true,
-    "expectedAgentKey": "DOUBAO_OFFICE"
+    "expectedAgentKey": "DOUBAO_WORK"
   },
   {
-    "name": "DOUBAO_OFFICE_AGENT_NAME='synthetic-agent\\n' identifies Doubao Office",
+    "name": "DOUBAO_OFFICE_AGENT_NAME='synthetic-agent\\n' identifies Doubao Work",
     "env": {
       "DOUBAO_OFFICE_AGENT_NAME": "synthetic-agent\n"
     },
     "expectedIsAgent": true,
-    "expectedAgentKey": "DOUBAO_OFFICE"
+    "expectedAgentKey": "DOUBAO_WORK"
   },
   {
-    "name": "DOUBAO_OFFICE_ANSWER_MESSAGE_ID alone does not identify Doubao Office",
+    "name": "DOUBAO_OFFICE_ANSWER_MESSAGE_ID alone does not identify Doubao Work",
     "env": {
       "DOUBAO_OFFICE_ANSWER_MESSAGE_ID": "synthetic-message"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "DOUBAO_OFFICE_APP_ID alone does not identify Doubao Office",
+    "name": "DOUBAO_OFFICE_APP_ID alone does not identify Doubao Work",
     "env": {
       "DOUBAO_OFFICE_APP_ID": "synthetic-app"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "DOUBAO_OFFICE_PLATFORM_APP_ID alone does not identify Doubao Office",
+    "name": "DOUBAO_OFFICE_PLATFORM_APP_ID alone does not identify Doubao Work",
     "env": {
       "DOUBAO_OFFICE_PLATFORM_APP_ID": "synthetic-platform-app"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "DOUBAO_OFFICE_CLI_CITATION alone does not identify Doubao Office",
+    "name": "DOUBAO_OFFICE_CLI_CITATION alone does not identify Doubao Work",
     "env": {
       "DOUBAO_OFFICE_CLI_CITATION": "synthetic-citation"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "DOUBAO_OFFICE_CLI_FORWARD_PROXY alone does not identify Doubao Office",
+    "name": "DOUBAO_OFFICE_CLI_FORWARD_PROXY alone does not identify Doubao Work",
     "env": {
       "DOUBAO_OFFICE_CLI_FORWARD_PROXY": "https://cli-proxy.example.invalid"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "DOUBAO_OFFICE_CLI_TOKEN alone does not identify Doubao Office",
+    "name": "DOUBAO_OFFICE_CLI_TOKEN alone does not identify Doubao Work",
     "env": {
       "DOUBAO_OFFICE_CLI_TOKEN": "synthetic-test-token"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "DOUBAO_OFFICE_EDITION alone does not identify Doubao Office",
+    "name": "DOUBAO_OFFICE_EDITION alone does not identify Doubao Work",
     "env": {
       "DOUBAO_OFFICE_EDITION": "synthetic-edition"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "DOUBAO_OFFICE_FORWARD_PROXY alone does not identify Doubao Office",
+    "name": "DOUBAO_OFFICE_FORWARD_PROXY alone does not identify Doubao Work",
     "env": {
       "DOUBAO_OFFICE_FORWARD_PROXY": "https://proxy.example.invalid"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "DOUBAO_OFFICE_LOG_ID alone does not identify Doubao Office",
+    "name": "DOUBAO_OFFICE_LOG_ID alone does not identify Doubao Work",
     "env": {
       "DOUBAO_OFFICE_LOG_ID": "synthetic-log"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "DOUBAO_OFFICE_MARKET alone does not identify Doubao Office",
+    "name": "DOUBAO_OFFICE_MARKET alone does not identify Doubao Work",
     "env": {
       "DOUBAO_OFFICE_MARKET": "synthetic-market"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "Doubao Office metadata together does not identify the agent",
+    "name": "Doubao Work metadata together does not identify the agent",
     "env": {
       "DOUBAO_OFFICE_ANSWER_MESSAGE_ID": "synthetic-message",
       "DOUBAO_OFFICE_APP_ID": "synthetic-app",
@@ -1719,7 +1719,7 @@
     "expectedIsAgent": false
   },
   {
-    "name": "Doubao Office metadata does not override an empty agent-name marker",
+    "name": "Doubao Work metadata does not override an empty agent-name marker",
     "env": {
       "DOUBAO_OFFICE_ANSWER_MESSAGE_ID": "synthetic-message",
       "DOUBAO_OFFICE_APP_ID": "synthetic-app",
@@ -1736,7 +1736,7 @@
     "expectedIsAgent": false
   },
   {
-    "name": "Doubao Office accepts another non-empty agent name with metadata",
+    "name": "Doubao Work accepts another non-empty agent name with metadata",
     "env": {
       "DOUBAO_OFFICE_ANSWER_MESSAGE_ID": "synthetic-message",
       "DOUBAO_OFFICE_APP_ID": "synthetic-app",
@@ -1751,10 +1751,10 @@
       "DOUBAO_OFFICE_AGENT_NAME": "other-agent"
     },
     "expectedIsAgent": true,
-    "expectedAgentKey": "DOUBAO_OFFICE"
+    "expectedAgentKey": "DOUBAO_WORK"
   },
   {
-    "name": "a non-empty Doubao Office agent name is sufficient with other metadata",
+    "name": "a non-empty Doubao Work agent name is sufficient with other metadata",
     "env": {
       "DOUBAO_OFFICE_ANSWER_MESSAGE_ID": "synthetic-message",
       "DOUBAO_OFFICE_APP_ID": "synthetic-app",
@@ -1769,10 +1769,10 @@
       "DOUBAO_OFFICE_AGENT_NAME": "synthetic-agent"
     },
     "expectedIsAgent": true,
-    "expectedAgentKey": "DOUBAO_OFFICE"
+    "expectedAgentKey": "DOUBAO_WORK"
   },
   {
-    "name": "Doubao Office precedes inherited Cursor and Claude context",
+    "name": "Doubao Work precedes inherited Cursor and Claude context",
     "env": {
       "DOUBAO_OFFICE_AGENT_NAME": "synthetic-agent",
       "CURSOR_AGENT": "1",
@@ -1780,19 +1780,19 @@
       "CLAUDECODE": "1"
     },
     "expectedIsAgent": true,
-    "expectedAgentKey": "DOUBAO_OFFICE"
+    "expectedAgentKey": "DOUBAO_WORK"
   },
   {
-    "name": "another non-empty Doubao Office name precedes Cursor context",
+    "name": "another non-empty Doubao Work name precedes Cursor context",
     "env": {
       "DOUBAO_OFFICE_AGENT_NAME": "other-agent",
       "CURSOR_AGENT": "1"
     },
     "expectedIsAgent": true,
-    "expectedAgentKey": "DOUBAO_OFFICE"
+    "expectedAgentKey": "DOUBAO_WORK"
   },
   {
-    "name": "AI_AGENT overrides the non-empty Doubao Office agent-name variable",
+    "name": "AI_AGENT overrides the non-empty Doubao Work agent-name variable",
     "env": {
       "DOUBAO_OFFICE_AGENT_NAME": "synthetic-agent",
       "AI_AGENT": "custom-priority"

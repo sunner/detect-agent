@@ -7,7 +7,7 @@
     {
       "key": "CRUSH",
       "name": "crush",
-      "description": "Crush execution context. Checked before inherited editor-terminal markers.",
+      "description": "A terminal coding agent from Charm.",
       "match": {
         "type": "anyOf",
         "conditions": [{ "type": "env_set", "name": "CRUSH" }]
@@ -16,7 +16,7 @@
     {
       "key": "HERMES",
       "name": "hermes-agent",
-      "description": "Hermes execution context, identified by its session or harness marker.",
+      "description": "An AI agent from Nous Research with persistent memory and reusable skills.",
       "match": {
         "type": "anyOf",
         "conditions": [
@@ -28,7 +28,7 @@
     {
       "key": "KILO_CODE",
       "name": "kilo-code",
-      "description": "Kilo Code execution context.",
+      "description": "An open-source coding agent available in editors and the terminal.",
       "match": {
         "type": "anyOf",
         "conditions": [{ "type": "env_set", "name": "KILOCODE_FEATURE" }]
@@ -37,7 +37,7 @@
     {
       "key": "TRAE",
       "name": "trae",
-      "description": "Trae AI shell context.",
+      "description": "An AI coding environment with IDE and SOLO modes.",
       "match": {
         "type": "anyOf",
         "conditions": [{ "type": "env_set", "name": "TRAE_AI_SHELL_ID" }]
@@ -46,7 +46,7 @@
     {
       "key": "VTCODE",
       "name": "vtcode",
-      "description": "VTCode execution context. Requires the documented marker value, not just a non-empty variable.",
+      "description": "A terminal coding agent for planning, implementing and reviewing code.",
       "match": {
         "type": "anyOf",
         "conditions": [{ "type": "env_value", "name": "VTCODE", "value": "1" }]
@@ -55,7 +55,7 @@
     {
       "key": "WORKBUDDY",
       "name": "workbuddy",
-      "description": "WorkBuddy application context from its exact product-name markers. Generic packaging and configuration variables are insufficient.",
+      "description": "Tencent's desktop AI workspace for completing office tasks.",
       "match": {
         "type": "anyOf",
         "conditions": [
@@ -75,7 +75,7 @@
     {
       "key": "GROK_BOT",
       "name": "grok-bot",
-      "description": "Grok Bot local or reported cloud-shell context. The cloud branch requires CURSOR_AGENT plus both exact Sand flags; shared infrastructure markers do not prove an exclusive or immediate caller. This rule precedes Cursor compatibility markers and is separate from Grok Build.",
+      "description": "AI teammates from Cursor that carry out tasks across apps and websites on a persistent cloud computer.",
       "match": {
         "type": "anyOf",
         "conditions": [
@@ -98,7 +98,7 @@
     {
       "key": "QWENWORK",
       "name": "qwenwork",
-      "description": "QwenWork context from a non-empty product integration variable. Its value is not restricted; shared use by other products has not been established. Session, region, site, execution-mode and endpoint fields are insufficient.",
+      "description": "Alibaba's AI office platform for completing tasks across desktop and web.",
       "match": {
         "type": "anyOf",
         "conditions": [
@@ -109,7 +109,7 @@
     {
       "key": "CUE",
       "name": "cue",
-      "description": "Cue Linux desktop-worker context from a reported runtime marker. Other MANUS-prefixed configuration variables are insufficient.",
+      "description": "Personal AI agents from Manus AI with their own computer, email, phone, and wallet.",
       "match": {
         "type": "anyOf",
         "conditions": [
@@ -124,7 +124,7 @@
     {
       "key": "MUSE",
       "name": "muse",
-      "description": "Muse execution context from reported active-agent or tool-call markers. Other instance, session, tier or location metadata is insufficient.",
+      "description": "Meta's personal AI agent that works across connected services on a dedicated cloud computer.",
       "match": {
         "type": "anyOf",
         "conditions": [
@@ -134,9 +134,9 @@
       }
     },
     {
-      "key": "MANUS_STUDIO",
-      "name": "manus-studio",
-      "description": "ManusStudio addon-runtime descriptor context from user-reported ordinary-shell observations. Descriptor values were not supplied; matching requires a non-empty value.",
+      "key": "MANUS",
+      "name": "manus",
+      "description": "General-purpose AI agent for research, content creation, and workflow automation.",
       "match": {
         "type": "anyOf",
         "conditions": [
@@ -146,9 +146,9 @@
       }
     },
     {
-      "key": "DOUBAO_OFFICE",
-      "name": "doubao-office",
-      "description": "Doubao Office context from a user-reported non-empty runtime agent-name variable. Message, application, proxy, credential and deployment metadata are insufficient.",
+      "key": "DOUBAO_WORK",
+      "name": "doubao-work",
+      "description": "An AI work platform for individuals, teams, and enterprises.",
       "match": {
         "type": "anyOf",
         "conditions": [
@@ -387,7 +387,7 @@
     {
       "key": "ZED",
       "name": "zed",
-      "description": "Zed terminal environment, not proof of an agent invocation. Kept as a fallback after other supported contexts.",
+      "description": "A code editor designed for fast, collaborative development.",
       "match": {
         "type": "anyOf",
         "conditions": [{ "type": "env_set", "name": "ZED_TERM" }]

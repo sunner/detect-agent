@@ -7,6 +7,44 @@ contents were collected for these tests. Locations refer to the packaged files,
 including minified line numbers, not unpublished source repositories. The
 synthetic test cases do not establish coverage of every platform or execution mode.
 
+## Product descriptions and official sources
+
+Checked on **2026-10-16**. The descriptions below paraphrase official product
+positioning. These pages establish product names and intended uses; they do not
+establish environment-variable contracts or prove that a detected process was
+started by an agent. The marker evidence and its limits are documented separately.
+
+| Product and result            | Description                                                                                            | Official source                                                                                                                                                                                       |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Crush (`crush`)               | A terminal coding agent from Charm.                                                                    | [Official source](https://github.com/charmbracelet/crush#readme)                                                                                                                                      |
+| Hermes Agent (`hermes-agent`) | An AI agent from Nous Research with persistent memory and reusable skills.                             | [Official source](https://hermes-agent.nousresearch.com/docs)                                                                                                                                         |
+| Kilo Code (`kilo-code`)       | An open-source coding agent available in editors and the terminal.                                     | [Official source](https://github.com/Kilo-Org/kilocode#readme)                                                                                                                                        |
+| TRAE (`trae`)                 | An AI coding environment with IDE and SOLO modes.                                                      | [Official source](https://www.trae.ai/blog/trae_work_0609)                                                                                                                                            |
+| VT Code (`vtcode`)            | A terminal coding agent for planning, implementing and reviewing code.                                 | [Official source](https://github.com/vinhnx/VTCode#readme)                                                                                                                                            |
+| WorkBuddy (`workbuddy`)       | Tencent's desktop AI workspace for completing office tasks.                                            | [Official source](https://www.codebuddy.cn/docs/workbuddy/From-Beginner-to-Expert-Guide/Product-Guide)                                                                                                |
+| Grok Bot (`grok-bot`)         | AI teammates from Cursor that carry out tasks across apps and websites on a persistent cloud computer. | [Official source](https://cursor.com/docs/grok-bot)                                                                                                                                                   |
+| QwenWork (`qwenwork`)         | Alibaba's AI office platform for completing tasks across desktop and web.                              | [Official source](https://qwenwork.cn/docs/product-introduction)                                                                                                                                      |
+| Cue (`cue`)                   | Personal AI agents from Manus AI with their own computer, email, phone, and wallet.                    | [Official source](https://cue.im/?lang=zh-CN); [agent API overview](https://open.manus.ai/docs/v2/agents-overview)                                                                                    |
+| Muse (`muse`)                 | Meta's personal AI agent that works across connected services on a dedicated cloud computer.           | [Official source](https://research.meta.ai/blog/security-and-safety-for-ai-agents-our-approach-with-muse)                                                                                             |
+| Manus (`manus`)               | General-purpose AI agent for research, content creation, and workflow automation.                      | [Official source](https://www.manus.im/about); [product site](https://manus.im/)                                                                                                                      |
+| Doubao Work (`doubao-work`)   | An AI work platform for individuals, teams, and enterprises.                                           | [Official source](https://www.feishu.cn/content/article/7677519271848610746); [official English name](https://www.feishu.cn/hc/en-US/articles/428390929435-admin-configure-screen-capture-protection) |
+| Zed (`zed`)                   | A code editor designed for fast, collaborative development.                                            | [Official source](https://github.com/zed-industries/zed#readme)                                                                                                                                       |
+
+TRAE's description refers to the coding product with IDE and SOLO modes, not
+the separately positioned TRAE Work assistant. Cue's official site identifies
+Manus AI in its footer, and the official agent API overview links Cue app agents
+to that API. This product attribution does not independently validate Cue's
+user-reported runtime marker.
+
+## Zed terminal context
+
+The `ZED_TERM` condition identifies a terminal in the Zed editor, including a
+human-operated terminal. It remains the final fallback after agent-specific
+rules and does not establish that an agent initiated a command. The product
+positioning above therefore describes the editor rather than an agent-only
+runtime. The marker is also listed in the
+[Hugging Face agent-harness registry](https://github.com/huggingface/huggingface.js/blob/e08240742cd64d8f908b22e52358b84c812e882c/packages/tasks/src/agent-harnesses.ts).
+
 ## WorkBuddy
 
 Inspected WorkBuddy 5.8.3, bundle ID `com.tencent.workbuddy.mac`.
@@ -118,26 +156,27 @@ match. These observations were not reproduced by launching Muse for this
 contribution, and no inspected application version or artifact hash is claimed.
 Fixtures use synthetic tool-call identifiers, never real runtime IDs.
 
-## ManusStudio
+## Manus
 
 A user reported the marker names `MANUS_ADDON_RUNTIME_SPEC_PATH` and
 `MANUS_ADDON_RUNTIME_SPECS_REVISION` in an ordinary shell on **2026-10-16**,
 without providing their values. The conditions treat them as addon-runtime
-descriptors and conservatively require non-empty values, returning `manus-studio`.
+descriptors and conservatively require non-empty values, returning `manus`.
 This is user-reported shell evidence, not a locally reproduced shell probe or
-validation of ManusStudio 2.0.7. The separate local static review did not confirm
-these marker names or their propagation. No `ENABLED` value is guessed.
+validation of the previously inspected Manus Studio 2.0.7 artifact. The separate
+local static review did not confirm these marker names or their propagation.
+No `ENABLED` value is guessed.
 Tests use synthetic descriptor values; no real spec path or revision is recorded.
 
-## Doubao Office
+## Doubao Work
 
 A user-provided runtime observation on **2026-10-16** identified
-`DOUBAO_OFFICE_AGENT_NAME` as the Doubao Office context marker. The rule uses
-this variable's non-emptiness and returns `doubao-office`; it does not compare
+`DOUBAO_OFFICE_AGENT_NAME` as the Doubao Work context marker. The rule uses
+this variable's non-emptiness and returns `doubao-work`; it does not compare
 the value to a particular agent name. The existing `env_set` behavior treats
 missing and empty values as absent and any non-empty value, including whitespace,
 as present. This observation was not independently reproduced by launching
-Doubao Office for this contribution; no local artifact version, hash or official
+Doubao Work for this contribution; no local artifact version, hash or official
 stability guarantee is claimed.
 
 Other `DOUBAO_OFFICE_` message, application, citation, proxy, credential, edition,

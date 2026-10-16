@@ -93,9 +93,9 @@ This package can detect the following AI agents and development environments:
 - **Grok Bot** (Cursor; local and sandbox contexts)
 - **QwenWork**
 - **Cue desktop-worker runtime**
-- **Manus Studio addon-runtime context**
+- **Manus**
 - **Muse** (active assignment or tool-call context)
-- **Doubao Office**
+- **Doubao Work**
 - **Custom agents** (via the `AI_AGENT` environment variable)
 
 See [`agents.json`](https://raw.githubusercontent.com/vercel/detect-agent/main/agents.json) for the exact environment variables and conditions used to detect each one.
