@@ -1524,5 +1524,258 @@
     },
     "expectedIsAgent": true,
     "expectedName": "custom-priority"
+  },
+  {
+    "name": "detects Doubao Office from a non-empty agent-name variable",
+    "env": {
+      "DOUBAO_OFFICE_AGENT_NAME": "synthetic-agent"
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "DOUBAO_OFFICE",
+    "expectedName": "doubao-office"
+  },
+  {
+    "name": "missing DOUBAO_OFFICE_AGENT_NAME does not identify Doubao Office",
+    "env": {},
+    "expectedIsAgent": false
+  },
+  {
+    "name": "empty DOUBAO_OFFICE_AGENT_NAME does not identify Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_AGENT_NAME": ""
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "whitespace-only DOUBAO_OFFICE_AGENT_NAME follows non-empty semantics",
+    "env": {
+      "DOUBAO_OFFICE_AGENT_NAME": " \t "
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "DOUBAO_OFFICE"
+  },
+  {
+    "name": "DOUBAO_OFFICE_AGENT_NAME='other-agent' identifies Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_AGENT_NAME": "other-agent"
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "DOUBAO_OFFICE"
+  },
+  {
+    "name": "DOUBAO_OFFICE_AGENT_NAME='doubao-office' identifies Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_AGENT_NAME": "doubao-office"
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "DOUBAO_OFFICE"
+  },
+  {
+    "name": "DOUBAO_OFFICE_AGENT_NAME='SYNTHETIC_AGENT' identifies Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_AGENT_NAME": "SYNTHETIC_AGENT"
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "DOUBAO_OFFICE"
+  },
+  {
+    "name": "DOUBAO_OFFICE_AGENT_NAME='Synthetic_Agent' identifies Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_AGENT_NAME": "Synthetic_Agent"
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "DOUBAO_OFFICE"
+  },
+  {
+    "name": "DOUBAO_OFFICE_AGENT_NAME=' synthetic-agent' identifies Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_AGENT_NAME": " synthetic-agent"
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "DOUBAO_OFFICE"
+  },
+  {
+    "name": "DOUBAO_OFFICE_AGENT_NAME='synthetic-agent ' identifies Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_AGENT_NAME": "synthetic-agent "
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "DOUBAO_OFFICE"
+  },
+  {
+    "name": "DOUBAO_OFFICE_AGENT_NAME='synthetic-agent\\n' identifies Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_AGENT_NAME": "synthetic-agent\n"
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "DOUBAO_OFFICE"
+  },
+  {
+    "name": "DOUBAO_OFFICE_ANSWER_MESSAGE_ID alone does not identify Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_ANSWER_MESSAGE_ID": "synthetic-message"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "DOUBAO_OFFICE_APP_ID alone does not identify Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_APP_ID": "synthetic-app"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "DOUBAO_OFFICE_PLATFORM_APP_ID alone does not identify Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_PLATFORM_APP_ID": "synthetic-platform-app"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "DOUBAO_OFFICE_CLI_CITATION alone does not identify Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_CLI_CITATION": "synthetic-citation"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "DOUBAO_OFFICE_CLI_FORWARD_PROXY alone does not identify Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_CLI_FORWARD_PROXY": "https://cli-proxy.example.invalid"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "DOUBAO_OFFICE_CLI_TOKEN alone does not identify Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_CLI_TOKEN": "synthetic-test-token"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "DOUBAO_OFFICE_EDITION alone does not identify Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_EDITION": "synthetic-edition"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "DOUBAO_OFFICE_FORWARD_PROXY alone does not identify Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_FORWARD_PROXY": "https://proxy.example.invalid"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "DOUBAO_OFFICE_LOG_ID alone does not identify Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_LOG_ID": "synthetic-log"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "DOUBAO_OFFICE_MARKET alone does not identify Doubao Office",
+    "env": {
+      "DOUBAO_OFFICE_MARKET": "synthetic-market"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "Doubao Office metadata together does not identify the agent",
+    "env": {
+      "DOUBAO_OFFICE_ANSWER_MESSAGE_ID": "synthetic-message",
+      "DOUBAO_OFFICE_APP_ID": "synthetic-app",
+      "DOUBAO_OFFICE_PLATFORM_APP_ID": "synthetic-platform-app",
+      "DOUBAO_OFFICE_CLI_CITATION": "synthetic-citation",
+      "DOUBAO_OFFICE_CLI_FORWARD_PROXY": "https://cli-proxy.example.invalid",
+      "DOUBAO_OFFICE_CLI_TOKEN": "synthetic-test-token",
+      "DOUBAO_OFFICE_EDITION": "synthetic-edition",
+      "DOUBAO_OFFICE_FORWARD_PROXY": "https://proxy.example.invalid",
+      "DOUBAO_OFFICE_LOG_ID": "synthetic-log",
+      "DOUBAO_OFFICE_MARKET": "synthetic-market"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "Doubao Office metadata does not override an empty agent-name marker",
+    "env": {
+      "DOUBAO_OFFICE_ANSWER_MESSAGE_ID": "synthetic-message",
+      "DOUBAO_OFFICE_APP_ID": "synthetic-app",
+      "DOUBAO_OFFICE_PLATFORM_APP_ID": "synthetic-platform-app",
+      "DOUBAO_OFFICE_CLI_CITATION": "synthetic-citation",
+      "DOUBAO_OFFICE_CLI_FORWARD_PROXY": "https://cli-proxy.example.invalid",
+      "DOUBAO_OFFICE_CLI_TOKEN": "synthetic-test-token",
+      "DOUBAO_OFFICE_EDITION": "synthetic-edition",
+      "DOUBAO_OFFICE_FORWARD_PROXY": "https://proxy.example.invalid",
+      "DOUBAO_OFFICE_LOG_ID": "synthetic-log",
+      "DOUBAO_OFFICE_MARKET": "synthetic-market",
+      "DOUBAO_OFFICE_AGENT_NAME": ""
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "Doubao Office accepts another non-empty agent name with metadata",
+    "env": {
+      "DOUBAO_OFFICE_ANSWER_MESSAGE_ID": "synthetic-message",
+      "DOUBAO_OFFICE_APP_ID": "synthetic-app",
+      "DOUBAO_OFFICE_PLATFORM_APP_ID": "synthetic-platform-app",
+      "DOUBAO_OFFICE_CLI_CITATION": "synthetic-citation",
+      "DOUBAO_OFFICE_CLI_FORWARD_PROXY": "https://cli-proxy.example.invalid",
+      "DOUBAO_OFFICE_CLI_TOKEN": "synthetic-test-token",
+      "DOUBAO_OFFICE_EDITION": "synthetic-edition",
+      "DOUBAO_OFFICE_FORWARD_PROXY": "https://proxy.example.invalid",
+      "DOUBAO_OFFICE_LOG_ID": "synthetic-log",
+      "DOUBAO_OFFICE_MARKET": "synthetic-market",
+      "DOUBAO_OFFICE_AGENT_NAME": "other-agent"
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "DOUBAO_OFFICE"
+  },
+  {
+    "name": "a non-empty Doubao Office agent name is sufficient with other metadata",
+    "env": {
+      "DOUBAO_OFFICE_ANSWER_MESSAGE_ID": "synthetic-message",
+      "DOUBAO_OFFICE_APP_ID": "synthetic-app",
+      "DOUBAO_OFFICE_PLATFORM_APP_ID": "synthetic-platform-app",
+      "DOUBAO_OFFICE_CLI_CITATION": "synthetic-citation",
+      "DOUBAO_OFFICE_CLI_FORWARD_PROXY": "https://cli-proxy.example.invalid",
+      "DOUBAO_OFFICE_CLI_TOKEN": "synthetic-test-token",
+      "DOUBAO_OFFICE_EDITION": "synthetic-edition",
+      "DOUBAO_OFFICE_FORWARD_PROXY": "https://proxy.example.invalid",
+      "DOUBAO_OFFICE_LOG_ID": "synthetic-log",
+      "DOUBAO_OFFICE_MARKET": "synthetic-market",
+      "DOUBAO_OFFICE_AGENT_NAME": "synthetic-agent"
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "DOUBAO_OFFICE"
+  },
+  {
+    "name": "Doubao Office precedes inherited Cursor and Claude context",
+    "env": {
+      "DOUBAO_OFFICE_AGENT_NAME": "synthetic-agent",
+      "CURSOR_AGENT": "1",
+      "CURSOR_TRACE_ID": "synthetic-trace",
+      "CLAUDECODE": "1"
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "DOUBAO_OFFICE"
+  },
+  {
+    "name": "another non-empty Doubao Office name precedes Cursor context",
+    "env": {
+      "DOUBAO_OFFICE_AGENT_NAME": "other-agent",
+      "CURSOR_AGENT": "1"
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "DOUBAO_OFFICE"
+  },
+  {
+    "name": "AI_AGENT overrides the non-empty Doubao Office agent-name variable",
+    "env": {
+      "DOUBAO_OFFICE_AGENT_NAME": "synthetic-agent",
+      "AI_AGENT": "custom-priority"
+    },
+    "expectedIsAgent": true,
+    "expectedName": "custom-priority"
   }
 ]
