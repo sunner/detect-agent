@@ -1,7 +1,9 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import { determineAgent, KNOWN_AGENTS } from './index';
-import mockFs from 'mock-fs';
+import { access } from 'node:fs/promises';
 import testCases from '../testcases.json';
+
+vi.mock('node:fs/promises', () => ({ access: vi.fn() }));
 
 vi.setConfig({ testTimeout: 6 * 60 * 1000 });
 
@@ -39,8 +41,18 @@ const ALL_AGENT_ENVS = [
 
 describe('determineAgent', () => {
   const originalIsTTY = process.stdout.isTTY;
+  const files = new Map<string, 'present' | 'EACCES'>();
 
   beforeEach(() => {
+    files.clear();
+    vi.mocked(access).mockReset();
+    vi.mocked(access).mockImplementation(async path => {
+      const state = files.get(String(path));
+      if (state !== 'present') {
+        const code = state ?? 'ENOENT';
+        throw Object.assign(new Error(code), { code });
+      }
+    });
     vi.unstubAllEnvs();
     for (const v of ALL_AGENT_ENVS) {
       vi.stubEnv(v, '');
@@ -51,7 +63,7 @@ describe('determineAgent', () => {
   afterEach(() => {
     vi.unstubAllEnvs();
     process.stdout.isTTY = originalIsTTY;
-    mockFs.restore();
+    vi.mocked(access).mockReset();
   });
 
   for (const tc of testCases as TestCase[]) {
@@ -65,14 +77,9 @@ describe('determineAgent', () => {
       }
 
       if (tc.files && tc.files.length > 0) {
-        const fsConfig: Record<
-          string,
-          ReturnType<typeof mockFs.directory>
-        > = {};
         for (const path of tc.files) {
-          fsConfig[path] = mockFs.directory({ mode: 0o755 });
+          files.set(path, 'present');
         }
-        mockFs(fsConfig);
       }
 
       const result = await determineAgent();
@@ -95,9 +102,7 @@ describe('determineAgent', () => {
   }
 
   it('handles file system errors gracefully for devin detection', async () => {
-    mockFs({
-      '/opt': mockFs.directory({ mode: 0o000 }),
-    });
+    files.set('/opt/.devin', 'EACCES');
     const result = await determineAgent();
     expect(result).toEqual({ isAgent: false });
   });
