@@ -1,7 +1,7 @@
 # Desktop environment marker evidence
 
-Recorded on 2026-10-16. WorkBuddy, Grok Bot and QoderWork-family rules below are
-based on static inspection of installed macOS distribution artifacts. No agent
+Recorded on 2026-10-16. The WorkBuddy, local Grok Bot and QwenWork evidence below
+is based on static inspection of installed macOS distribution artifacts. No agent
 was launched and no real environment values, user configuration or session
 contents were collected for these tests. Locations refer to the packaged files,
 including minified line numbers, not unpublished source repositories. The
@@ -60,30 +60,34 @@ These shared markers do not establish exclusive brand ownership or resolve
 nested agents' immediate identity. No tenant, authentication, store, boot or VNC
 identifier is used by the rule or included in the fixtures.
 
-## QoderWork family
+## QwenWork
 
-The inspected distribution was **QwenWorkCN 1.2.5**, bundle ID
-`cn.qwenwork.desktop.mac`, which retains QoderWork runtime naming.
+A user supplied the exact product marker
+`QODER_WORK_INTEGRATION_PRODUCT=qwenworkcn` on **2026-10-16**. A subsequent
+static inspection confirmed it in **QwenWorkCN 1.3.1**, bundle ID
+`cn.qwenwork.desktop.mac`. This is a newer artifact than the previously
+inspected 1.2.5 distribution.
 
 - `Contents/Resources/app.asar` SHA-256:
-  `d946457e5e3d7761f7203111775388d5131293a337bf13430e0c26b8993536fb`.
-- `out/main/main.js:654` (`composeQoderAgentSdkRuntimeEnv`) supplies
-  `QODERWORK_IS_CN=true`. Workspace Bash at line 11824 and background Bash at
-  line 11838 supply `QODERWORK_SOURCE_CHAT_ID`, with the distribution marker
-  when applicable.
-- `ShellExecutionService` at lines 2313–2316 forwards the request environment
-  to `QxcSeatbeltBackend.runBash` at line 1048 and its child-process spawn.
-  The target-environment filtering at line 888 retains these two marker names.
-  The VM command builder at line 1412 also exports them on applicable paths;
-  the VM was not started for this inspection.
+  `f654cd3d68406139b326f5d10d3dbade1b85c610d1fee386c2f3dca43fb6596c`.
+- Packaged `out/main/main.js` SHA-256:
+  `76540a35496c1a0df187081b58c4d640aabc9b0f84e78fdbf7fb9fc36bc6eb3d`.
+- At line 688, `buildHostCliDiscoveryEnv` supplies the product marker, using
+  the `qwenworkcn` product constant from `chunks/index-CHipc8Ca.js`. At line
+  697, `buildQoderWorkIntegrationEnv` passes it through
+  `composeQoderAgentSdkRuntimeEnv`; these are the actual internal function names.
+- At line 2330, `executeLocalShell` uses the constructed child environment.
+  At line 2331, `executeQxcHostShell` rebuilds the trusted discovery environment.
+  This establishes the inspected local/host shell paths. Propagation into
+  ordinary VM/QXC guest shells was not established, and no agent was launched.
 
-The rule accepts a non-empty `QODERWORK_SOURCE_CHAT_ID` or exact
-`QODERWORK_IS_CN=true`, returning only `qoderwork`. It does not infer region,
-commercial branding, or model identity, and does not claim independent
-inspection of every QoderWork/QwenWork distribution. Fixtures use a synthetic
-chat ID. The [QwenWork introduction](https://qwenwork.cn/docs/product-introduction)
-identifies the inspected brand; the [QoderWork hooks documentation](https://docs.qoder.com/qoderwork/hooks)
-does not establish these markers for hook invocations.
+The rule accepts only exact `qwenworkcn` in
+`QODER_WORK_INTEGRATION_PRODUCT`, returning `qwenwork`. It does not accept the
+old `QODERWORK_SOURCE_CHAT_ID` or `QODERWORK_IS_CN` conditions. Session IDs,
+region/site flags, execution mode and service endpoints do not independently
+identify the product, even when combined. Case changes and surrounding whitespace
+do not match. The [QwenWork introduction](https://qwenwork.cn/docs/product-introduction)
+identifies the product but does not establish this marker as a stable public API.
 
 ## Cue
 

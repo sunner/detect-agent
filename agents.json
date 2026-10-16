@@ -96,14 +96,17 @@
       }
     },
     {
-      "key": "QODERWORK",
-      "name": "qoderwork",
-      "description": "QoderWork-family execution context, including the inspected QwenWork distribution. These markers do not establish a region or distinguish product branding.",
+      "key": "QWENWORK",
+      "name": "qwenwork",
+      "description": "QwenWork context from its exact product integration marker. Session, region, site, execution-mode and endpoint fields do not identify the product on their own.",
       "match": {
         "type": "anyOf",
         "conditions": [
-          { "type": "env_set", "name": "QODERWORK_SOURCE_CHAT_ID" },
-          { "type": "env_value", "name": "QODERWORK_IS_CN", "value": "true" }
+          {
+            "type": "env_value",
+            "name": "QODER_WORK_INTEGRATION_PRODUCT",
+            "value": "qwenworkcn"
+          }
         ]
       }
     },

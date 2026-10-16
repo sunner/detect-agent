@@ -91,7 +91,7 @@ This package can detect the following AI agents and development environments:
 - **Zed terminal environment**
 - **WorkBuddy** (Tencent)
 - **Grok Bot** (Cursor; local and sandbox contexts)
-- **QoderWork / QwenWork family**
+- **QwenWork**
 - **Cue desktop-worker runtime**
 - **Manus Studio addon-runtime context**
 - **Muse** (active assignment or tool-call context)

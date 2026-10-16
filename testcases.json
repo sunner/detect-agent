@@ -759,86 +759,218 @@
     "expectedAgentKey": "GROK"
   },
   {
-    "name": "detects QoderWork family from a synthetic chat marker",
+    "name": "detects QwenWork from its exact product marker",
+    "env": {
+      "QODER_WORK_INTEGRATION_PRODUCT": "qwenworkcn"
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "QWENWORK",
+    "expectedName": "qwenwork"
+  },
+  {
+    "name": "QODER_WORK_INTEGRATION_PRODUCT='' does not identify QwenWork",
+    "env": {
+      "QODER_WORK_INTEGRATION_PRODUCT": ""
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "QODER_WORK_INTEGRATION_PRODUCT='QWENWORKCN' does not identify QwenWork",
+    "env": {
+      "QODER_WORK_INTEGRATION_PRODUCT": "QWENWORKCN"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "QODER_WORK_INTEGRATION_PRODUCT='QwenWorkCN' does not identify QwenWork",
+    "env": {
+      "QODER_WORK_INTEGRATION_PRODUCT": "QwenWorkCN"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "QODER_WORK_INTEGRATION_PRODUCT='qwenwork' does not identify QwenWork",
+    "env": {
+      "QODER_WORK_INTEGRATION_PRODUCT": "qwenwork"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "QODER_WORK_INTEGRATION_PRODUCT='qoderwork' does not identify QwenWork",
+    "env": {
+      "QODER_WORK_INTEGRATION_PRODUCT": "qoderwork"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "QODER_WORK_INTEGRATION_PRODUCT='other-product' does not identify QwenWork",
+    "env": {
+      "QODER_WORK_INTEGRATION_PRODUCT": "other-product"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "QODER_WORK_INTEGRATION_PRODUCT=' qwenworkcn' does not identify QwenWork",
+    "env": {
+      "QODER_WORK_INTEGRATION_PRODUCT": " qwenworkcn"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "QODER_WORK_INTEGRATION_PRODUCT='qwenworkcn ' does not identify QwenWork",
+    "env": {
+      "QODER_WORK_INTEGRATION_PRODUCT": "qwenworkcn "
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "QODER_WORK_INTEGRATION_PRODUCT='qwenworkcn\\n' does not identify QwenWork",
+    "env": {
+      "QODER_WORK_INTEGRATION_PRODUCT": "qwenworkcn\n"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "QODERWORK_SOURCE_CHAT_ID alone does not identify QwenWork",
     "env": {
       "QODERWORK_SOURCE_CHAT_ID": "synthetic-chat"
     },
-    "expectedIsAgent": true,
-    "expectedAgentKey": "QODERWORK"
-  },
-  {
-    "name": "empty QoderWork chat marker does not identify a context",
-    "env": {
-      "QODERWORK_SOURCE_CHAT_ID": ""
-    },
     "expectedIsAgent": false
   },
   {
-    "name": "detects QoderWork family from exact distribution marker",
+    "name": "QODERWORK_IS_CN alone does not identify QwenWork",
     "env": {
       "QODERWORK_IS_CN": "true"
     },
-    "expectedIsAgent": true,
-    "expectedAgentKey": "QODERWORK"
+    "expectedIsAgent": false
   },
   {
-    "name": "QODERWORK_IS_CN='' alone does not identify a context",
+    "name": "QODER_SITE alone does not identify QwenWork",
     "env": {
-      "QODERWORK_IS_CN": ""
+      "QODER_SITE": "cn"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "QODERWORK_IS_CN='false' alone does not identify a context",
+    "name": "QODERWORK_EXECUTION_ENV alone does not identify QwenWork",
     "env": {
-      "QODERWORK_IS_CN": "false"
+      "QODERWORK_EXECUTION_ENV": "local"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "QODERWORK_IS_CN='TRUE' alone does not identify a context",
+    "name": "QWENWORK_BASE_URL alone does not identify QwenWork",
     "env": {
-      "QODERWORK_IS_CN": "TRUE"
+      "QWENWORK_BASE_URL": "https://qwenwork.example.invalid"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "QODERWORK_IS_CN='1' alone does not identify a context",
+    "name": "QODERCN_SERVER_ENDPOINT alone does not identify QwenWork",
     "env": {
-      "QODERWORK_IS_CN": "1"
+      "QODERCN_SERVER_ENDPOINT": "https://gateway.example.invalid"
     },
     "expectedIsAgent": false
   },
   {
-    "name": "QoderWork chat marker identifies the family without a region decision",
+    "name": "session region site mode and endpoints together do not identify QwenWork",
     "env": {
       "QODERWORK_SOURCE_CHAT_ID": "synthetic-chat",
-      "QODERWORK_IS_CN": "false"
+      "QODERWORK_IS_CN": "true",
+      "QODER_SITE": "cn",
+      "QODERWORK_EXECUTION_ENV": "local",
+      "QWENWORK_BASE_URL": "https://qwenwork.example.invalid",
+      "QODERCN_SERVER_ENDPOINT": "https://gateway.example.invalid"
     },
-    "expectedIsAgent": true,
-    "expectedAgentKey": "QODERWORK"
+    "expectedIsAgent": false
   },
   {
-    "name": "QODERWORK_SOURCE_CHAT_ID precedes inherited Cursor and Claude context",
+    "name": "other QwenWork context fields do not override a wrong product marker",
     "env": {
       "QODERWORK_SOURCE_CHAT_ID": "synthetic-chat",
+      "QODERWORK_IS_CN": "true",
+      "QODER_SITE": "cn",
+      "QODERWORK_EXECUTION_ENV": "local",
+      "QWENWORK_BASE_URL": "https://qwenwork.example.invalid",
+      "QODERCN_SERVER_ENDPOINT": "https://gateway.example.invalid",
+      "QODER_WORK_INTEGRATION_PRODUCT": "other-product"
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "other QwenWork context fields do not override an empty product marker",
+    "env": {
+      "QODERWORK_SOURCE_CHAT_ID": "synthetic-chat",
+      "QODERWORK_IS_CN": "true",
+      "QODER_SITE": "cn",
+      "QODERWORK_EXECUTION_ENV": "local",
+      "QWENWORK_BASE_URL": "https://qwenwork.example.invalid",
+      "QODERCN_SERVER_ENDPOINT": "https://gateway.example.invalid",
+      "QODER_WORK_INTEGRATION_PRODUCT": ""
+    },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "the exact QwenWork product marker is sufficient with additional context",
+    "env": {
+      "QODERWORK_SOURCE_CHAT_ID": "synthetic-chat",
+      "QODERWORK_IS_CN": "true",
+      "QODER_SITE": "cn",
+      "QODERWORK_EXECUTION_ENV": "local",
+      "QWENWORK_BASE_URL": "https://qwenwork.example.invalid",
+      "QODERCN_SERVER_ENDPOINT": "https://gateway.example.invalid",
+      "QODER_WORK_INTEGRATION_PRODUCT": "qwenworkcn"
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "QWENWORK"
+  },
+  {
+    "name": "QwenWork product marker precedes inherited Cursor and Claude context",
+    "env": {
+      "QODER_WORK_INTEGRATION_PRODUCT": "qwenworkcn",
       "CURSOR_AGENT": "1",
       "CURSOR_TRACE_ID": "editor-trace",
       "CLAUDECODE": "1"
     },
     "expectedIsAgent": true,
-    "expectedAgentKey": "QODERWORK"
+    "expectedAgentKey": "QWENWORK"
   },
   {
-    "name": "QODERWORK_IS_CN precedes inherited Cursor and Claude context",
+    "name": "QwenWork product marker precedes inherited Claude context",
+    "env": {
+      "QODER_WORK_INTEGRATION_PRODUCT": "qwenworkcn",
+      "CLAUDECODE": "1"
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "QWENWORK"
+  },
+  {
+    "name": "old chat marker does not override Cursor context",
+    "env": {
+      "QODERWORK_SOURCE_CHAT_ID": "synthetic-chat",
+      "CURSOR_AGENT": "1",
+      "CURSOR_TRACE_ID": "editor-trace"
+    },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "CURSOR"
+  },
+  {
+    "name": "old distribution marker does not override Claude context",
     "env": {
       "QODERWORK_IS_CN": "true",
-      "CURSOR_AGENT": "1",
-      "CURSOR_TRACE_ID": "editor-trace",
       "CLAUDECODE": "1"
     },
     "expectedIsAgent": true,
-    "expectedAgentKey": "QODERWORK"
+    "expectedAgentKey": "CLAUDE"
+  },
+  {
+    "name": "AI_AGENT overrides the exact QwenWork product marker",
+    "env": {
+      "AI_AGENT": "custom-priority",
+      "QODER_WORK_INTEGRATION_PRODUCT": "qwenworkcn"
+    },
+    "expectedIsAgent": true,
+    "expectedName": "custom-priority"
   },
   {
     "name": "AI_AGENT still overrides local product contexts",
@@ -846,7 +978,7 @@
       "AI_AGENT": "custom-priority",
       "WORKBUDDY_APP_NAME": "WorkBuddy",
       "SAND_AGENT": "1",
-      "QODERWORK_IS_CN": "true",
+      "QODER_WORK_INTEGRATION_PRODUCT": "qwenworkcn",
       "GROK_AGENT": "1"
     },
     "expectedIsAgent": true,
