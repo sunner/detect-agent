@@ -142,16 +142,43 @@
   },
 
   {
-    "name": "detects junie from JUNIE_DATA",
+    "name": "ignores JUNIE_DATA without JUNIE_SHIM_PATH",
     "env": { "JUNIE_DATA": "/tmp/junie" },
-    "expectedIsAgent": true,
-    "expectedAgentKey": "JUNIE"
+    "expectedIsAgent": false
   },
   {
     "name": "detects junie from JUNIE_SHIM_PATH",
     "env": { "JUNIE_SHIM_PATH": "/tmp/junie/shim" },
     "expectedIsAgent": true,
     "expectedAgentKey": "JUNIE"
+  },
+  {
+    "name": "does not detect junie from empty JUNIE_SHIM_PATH",
+    "env": { "JUNIE_SHIM_PATH": "" },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "ignores JUNIE_DATA when JUNIE_SHIM_PATH is empty",
+    "env": { "JUNIE_DATA": "/tmp/junie", "JUNIE_SHIM_PATH": "" },
+    "expectedIsAgent": false
+  },
+  {
+    "name": "detects junie from JUNIE_SHIM_PATH with JUNIE_DATA",
+    "env": { "JUNIE_DATA": "/tmp/junie", "JUNIE_SHIM_PATH": "/tmp/junie/shim" },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "JUNIE"
+  },
+  {
+    "name": "ignores JUNIE_DATA and falls back to cursor cli",
+    "env": { "JUNIE_DATA": "/tmp/junie", "CURSOR_AGENT": "1" },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "CURSOR_CLI"
+  },
+  {
+    "name": "keeps cursor cli priority over JUNIE_SHIM_PATH",
+    "env": { "JUNIE_SHIM_PATH": "/tmp/junie/shim", "CURSOR_AGENT": "1" },
+    "expectedIsAgent": true,
+    "expectedAgentKey": "CURSOR_CLI"
   },
 
   {

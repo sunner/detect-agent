@@ -194,6 +194,16 @@ and the [sandbox command path](https://github.com/xai-org/grok-build/blob/2bdd1d
 apply that marker. This extends the existing `grok` result without treating
 arbitrary non-empty selector values as a match.
 
+## Junie launcher marker
+
+Junie requires a non-empty `JUNIE_SHIM_PATH`. The
+[launcher at commit `cdbfbcf`](https://github.com/JetBrains/junie/blob/cdbfbcf6a9f17951c94dd2902619dffc37f5881f/templates/junie.shim.sh#L684-L700)
+exports its own absolute path in this variable. The launcher also accepts
+`JUNIE_DATA` as configurable data-directory context and exports it; detection
+intentionally ignores that variable. A missing or empty shim marker does not
+match Junie, even when `JUNIE_DATA` is set. Other agent rules retain their
+existing order and may still match.
+
 All of these markers can be set or inherited by other processes. They identify
 environment context, not an authenticated immediate caller. Existing override
 and first-match behavior still apply when several contexts coexist.
